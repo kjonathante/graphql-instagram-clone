@@ -15,6 +15,8 @@ import { createUploadLink } from "apollo-upload-client";
 
 // Create an http link:
 //const httpLink = new HttpLink({ uri: "http://localhost:4000/graphql" });
+// don't need HttpLink if using createUploadLink
+// https://stackoverflow.com/questions/49507035/how-to-use-apollo-link-http-with-apollo-upload-client
 const httpLink = createUploadLink({ uri: "http://localhost:4000/graphql" });
 
 // Create a WebSocket link:
