@@ -11,11 +11,11 @@ import { ApolloProvider } from "react-apollo";
 import { WebSocketLink } from "apollo-link-ws";
 import { split } from "apollo-link";
 import { getMainDefinition } from "apollo-utilities";
+import { createUploadLink } from "apollo-upload-client";
 
 // Create an http link:
-const httpLink = new HttpLink({
-  uri: "http://localhost:4000/graphql"
-});
+//const httpLink = new HttpLink({ uri: "http://localhost:4000/graphql" });
+const httpLink = createUploadLink({ uri: "http://localhost:4000/graphql" });
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({

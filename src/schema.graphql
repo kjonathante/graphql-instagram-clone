@@ -1,14 +1,22 @@
-  type Subscription {
-    eventAdded: Event!
-  }
-  type Query {
-    events: [Event!]!
-  }
-  type Mutation {
-    createEvent(topic: String!, message: String!): Event!
-  }
-  type Event {
-    _id: ID!
-    topic: String!
-    message: String!
-  }
+type Subscription {
+  eventAdded: Event!
+}
+type Query {
+  events: [Event!]!
+}
+type Mutation {
+  createEvent(topic: String!, message: String!): Event!
+  singleUpload(file: Upload!): File!
+}
+type Event {
+  _id: ID!
+  topic: String!
+  message: String!
+}
+
+type File {
+  _id: ID!
+  filename: String!
+  mimetype: String!
+  path: String!
+}
