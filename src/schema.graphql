@@ -1,0 +1,14 @@
+  type Subscription {
+    eventAdded: Event!
+  }
+  type Query {
+    events: [Event!]!
+  }
+  type Mutation {
+    createEvent(topic: String!, message: String!): Event!
+  }
+  type Event {
+    _id: ID!
+    topic: String!
+    message: String!
+  }

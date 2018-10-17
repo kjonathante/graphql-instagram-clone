@@ -1,0 +1,13 @@
+{
+  "name": "graphql-instagram-clone",
+  "version": "1.0.0",
+  "main": "src/server.js",
+  "repository": "git@github.com:kjonathante/graphql-instagram-clone.git",
+  "author": "Kit Jonathan Te <kjonathante@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server-express": "^2.1.0",
+    "graphql": "^14.0.2",
+    "mongojs": "^2.6.0"
+  }
+}
