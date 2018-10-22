@@ -3,6 +3,7 @@ type Subscription {
 }
 type Query {
   events: [Event!]!
+  eventsWithAuth: [Event!]!
 }
 type Mutation {
   createEvent(topic: String!, message: String!): Event!

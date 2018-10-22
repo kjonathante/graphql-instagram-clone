@@ -7,6 +7,7 @@ const { PubSub } = require("apollo-server-express");
 const Event = require("./models/event");
 const Images = require("./models/images");
 const User = require("./models/user");
+const { getUserId } = require("./utils");
 
 const pubsub = new PubSub();
 const UPLOAD_DIR = "./uploads";
@@ -50,6 +51,10 @@ const resolvers = {
       const events = await Event.read(context.db, args);
       return events;
       // return postController.posts();
+    },
+    async eventsWithAuth(root, args, context) {
+      const userId = getUserId(context)
+      return await Event.read(context.db, args);
     }
   },
   Mutation: {
