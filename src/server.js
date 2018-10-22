@@ -14,7 +14,8 @@ const ObjectId = mongojs.ObjectId;
 ObjectId.prototype.valueOf = function() {
   return this.toString();
 };
-//
+// this will make sure that email field is unique
+db.users.createIndex({ email: 1 }, { unique: true });
 
 const port = 4000;
 const app = express();

@@ -1,9 +1,13 @@
 const fs = require("fs");
 const mkdirp = require("mkdirp");
 const shortid = require("shortid");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const { PubSub } = require("apollo-server-express");
 const Event = require("./models/event");
 const Images = require("./models/images");
+const User = require("./models/user");
+const { getUserId } = require("./utils");
 
 const pubsub = new PubSub();
 const UPLOAD_DIR = "./uploads";
@@ -47,6 +51,10 @@ const resolvers = {
       const events = await Event.read(context.db, args);
       return events;
       // return postController.posts();
+    },
+    async eventsWithAuth(root, args, context) {
+      const userId = getUserId(context)
+      return await Event.read(context.db, args);
     }
   },
   Mutation: {
@@ -58,6 +66,40 @@ const resolvers = {
     },
     singleUpload: function(root, args, context) {
       return processUpload(context.db, args.file);
+    },
+    async signup(root, args, context) {
+      const password = await bcrypt.hash(args.password, 10);
+      const user = await User.create(context.db, {
+        ...args,
+        password: password
+      });
+      const token = jwt.sign({ userId: user._id }, "secret");
+      return {
+        token,
+        user
+      };
+    },
+    async login(root, args, context) {
+      const user = await User.user(context.db, { email: args.email });
+      if (!user) {
+        throw new Error("No such user found");
+      }
+
+      const valid = await bcrypt.compare(args.password, user.password);
+      if (!valid) {
+        throw new Error("Invalid password");
+      }
+
+      const token = jwt.sign({ userId: user._id }, "secret");
+      return {
+        token,
+        user
+      };
+    }
+  },
+  AuthPayload: {
+    async user(root, args, context) {
+      return await User.user(context.db, { _id: root.user._id });
     }
   }
 };
