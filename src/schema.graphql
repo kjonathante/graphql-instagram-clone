@@ -7,6 +7,8 @@ type Query {
 type Mutation {
   createEvent(topic: String!, message: String!): Event!
   singleUpload(file: Upload!): File!
+  signup(email: String!, password: String!, name: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
 }
 type Event {
   _id: ID!
@@ -19,4 +21,15 @@ type File {
   filename: String!
   mimetype: String!
   path: String!
+}
+
+type AuthPayload {
+  token: String
+  user: User
+}
+
+type User {
+  _id: ID!
+  email: String!
+  name: String!
 }
