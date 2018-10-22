@@ -1,10 +1,10 @@
-var jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
 function getUserId(context) {
-  var Authorization = context.token;
+  const Authorization = context.token;
   if (Authorization) {
-    var token = Authorization.replace("Bearer ", "");
-    var user = jwt.verify(token, "secret");
+    const token = Authorization.replace("Bearer ", "");
+    const user = jwt.verify(token, "secret");
     return user.userId;
   }
 
