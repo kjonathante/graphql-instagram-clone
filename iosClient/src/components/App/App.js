@@ -26,7 +26,7 @@ import { WebSocketLink } from "apollo-link-ws";
 import { split } from "apollo-link";
 import { getMainDefinition } from "apollo-utilities";
 
-import Login from "../Login/Login";
+import SwitchNavigator from "../SwitchNavigator/SwitchNavigator";
 
 // Create an http link:
 const httpLink = new HttpLink({
@@ -88,42 +88,40 @@ export default class App extends Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <View style={styles.container}>
-          <Login />
-        </View>
+        <SwitchNavigator />
       </ApolloProvider>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#F5FCFF"
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10
-  },
-  instructions: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5
-  },
-  button: {
-    backgroundColor: "gray",
-    width: 150,
-    height: 50,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 10
-  },
-  buttonText: {
-    color: "white"
-  }
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     flexDirection: "row",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     backgroundColor: "#F5FCFF"
+//   },
+//   welcome: {
+//     fontSize: 20,
+//     textAlign: "center",
+//     margin: 10
+//   },
+//   instructions: {
+//     textAlign: "center",
+//     color: "#333333",
+//     marginBottom: 5
+//   },
+//   button: {
+//     backgroundColor: "gray",
+//     width: 150,
+//     height: 50,
+//     borderRadius: 10,
+//     alignItems: "center",
+//     justifyContent: "center",
+//     margin: 10
+//   },
+//   buttonText: {
+//     color: "white"
+//   }
+// });
