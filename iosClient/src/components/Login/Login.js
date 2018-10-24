@@ -69,6 +69,7 @@ class Login extends Component {
         <Mutation
           mutation={login ? LOGIN_MUTATION : SIGNUP_MUTATION}
           onCompleted={data => this._confirm(data)}
+          onError={error => this._showError(error)}
         >
           {mutateFunc => (
             <TouchableOpacity
@@ -85,6 +86,8 @@ class Login extends Component {
             {login ? "Need to create an account?" : "Already have an account?"}
           </Text>
         </TouchableOpacity>
+
+        <View><Text>{this.state.error}</Text></View>
       </View>
     );
   }
@@ -92,7 +95,13 @@ class Login extends Component {
   _confirm = async data => {
     const { token } = this.state.login ? data.login : data.signup;
     this._storeData(token);
+    this.props.onSucceed();
   };
+
+  _showError = error => {
+    console.log("[Inside _showError]")
+    this.setState({error: error.toString()})
+  }
 
   _storeData = async token => {
     try {
